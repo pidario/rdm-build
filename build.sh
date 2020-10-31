@@ -99,8 +99,7 @@ makedepends=('curl')
 conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
 
 source=('rdm.desktop')
-sha256sums=('SKIP'
-            '$checksum')
+sha256sums=('$checksum')
 
 prepare() {
   curl -fsSOL https://github.com/$GH_USER/$GH_REPO/releases/download/\${pkgver}/rdm
