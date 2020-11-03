@@ -103,7 +103,7 @@ sha256sums=('$checksum')
 
 prepare() {
   curl -fsSOL https://github.com/$GH_USER/$GH_REPO/releases/download/\${pkgver}/rdm
-  curl -fsSOL https://github.com/uglide/RedisDesktopManager/blob/2020/src/resources/images/rdm.png
+  curl -fsSOL https://raw.githubusercontent.com/uglide/RedisDesktopManager/2020/src/resources/images/rdm.png
 }
 
 build() {
