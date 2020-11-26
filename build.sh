@@ -85,7 +85,6 @@ license=('GPL3')
 depends=(
   'botan'
   'libssh2'
-  'python'
   'qt5-base'
   'qt5-imageformats'
   'qt5-tools'
@@ -94,7 +93,13 @@ depends=(
   'qt5-quickcontrols2'
   'qt5-charts'
   'qt5-graphicaleffects'
-  'qt5-svg')
+  'qt5-svg'
+  'python'
+  'python-bitstring'
+  'python-cbor'
+  'python-phpserialize'
+  'python-pandas'
+  'python-msgpack')
 makedepends=('curl')
 conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
 

@@ -5,4 +5,3 @@ USER makepkg
 WORKDIR /home/makepkg/rdm-build
 COPY --chown=makepkg:makepkg . ./
 ENTRYPOINT ./build.sh
-
