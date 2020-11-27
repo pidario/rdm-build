@@ -100,20 +100,13 @@ depends=(
   'python-phpserialize'
   'python-pandas'
   'python-msgpack')
-makedepends=('curl')
 conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
-
-source=('rdm.desktop')
-sha256sums=('$checksum')
-
-prepare() {
-  curl -fsSOL https://github.com/$GH_USER/$GH_REPO/releases/download/\${pkgver}/rdm
-  curl -fsSOL https://raw.githubusercontent.com/uglide/RedisDesktopManager/2020/src/resources/images/rdm.png
-}
-
-build() {
-  echo "skipping build"
-}
+source=('rdm.desktop'
+        "https://github.com/pidario/rdm-build/releases/download/\${pkgver}/rdm"
+        'https://raw.githubusercontent.com/uglide/RedisDesktopManager/2020/src/resources/images/rdm.png')
+sha256sums=('$checksum'
+            'SKIP'
+            'SKIP')
 
 package() {
   _bindir="\$pkgdir/usr/bin"
