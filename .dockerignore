@@ -2,3 +2,5 @@
 .dockerignore
 Dockerfile
 README.md
+artifacts/*
+rdm-bin/*

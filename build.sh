@@ -6,7 +6,6 @@
 # AppImage zsync: $base/rdm.AppImage.zsync
 
 # ext. variables:
-# SSH_KEY
 # TAG
 # GITHUB_TOKEN
 # GH_USER
@@ -17,16 +16,14 @@
 # info on build:
 # https://github.com/RedisDesktop/redisdesktopmanager-snap/blob/master/snap/snapcraft.yaml
 
+# mkdir -p artifacts
 # docker build -t rdm-build .
-# docker run -t --rm -e SSH_KEY="$(cat ~/.ssh/id_rsa)" -e TAG=$tag -e GITHUB_TOKEN=$gh_token -e GH_USER=$gh_user -e GH_REPO=$gh_repo -e MAINTAINER="John Doe <john.doe at example dot com>" rdm-build
+# docker run -t --rm -v $(pwd)/artifacts:/rdm-build/artifacts -e TAG=$tag -e GH_USER=$gh_user -e GH_REPO=$gh_repo rdm-build
 
 set -eu
-base=$HOME/rdm-build
-repo=$base/rdm
 
-echo "$SSH_KEY" > $HOME/.ssh/id_rsa
-chmod 600 $HOME/.ssh/id_rsa
-ssh-keyscan -H aur.archlinux.org >> $HOME/.ssh/known_hosts
+base=/rdm-build
+repo=$base/rdm
 
 export QML_SOURCES_PATHS=$repo/src
 export APPIMAGE_EXTRACT_AND_RUN=1
@@ -59,71 +56,3 @@ convert $repo/src/resources/images/rdm.png -resize 512x512 $base/rdm.png
 
 # copy artifacts
 cp $repo/bin/linux/release/rdm $base/rdm.AppImage $base/rdm.AppImage.zsync $base/artifacts/
-
-# github release
-curl -fsSOL https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
-tar -zxvf ghr_v0.13.0_linux_amd64.tar.gz
-ghr_v0.13.0_linux_amd64/ghr -t $GITHUB_TOKEN -u $GH_USER -r $GH_REPO -delete $TAG $base/artifacts
-
-# aur release
-git clone ssh://aur@aur.archlinux.org/rdm-bin.git
-pushd rdm-bin
-git config user.email $EMAIL
-git config user.name $GH_USER
-rm -f PKGBUILD .SRCINFO rdm.desktop
-checksum=`sha256sum $base/rdm.desktop | awk '{print $1}'`
-cat <<EOT >> PKGBUILD
-# Maintainer: $MAINTAINER
-
-pkgname=rdm-bin
-pkgver=$TAG
-pkgrel=1
-pkgdesc='Cross-platform open source database management tool for Redis ®'
-arch=('x86_64')
-url="https://rdm.dev/"
-license=('GPL3')
-depends=(
-  'botan'
-  'libssh2'
-  'qt5-base'
-  'qt5-imageformats'
-  'qt5-tools'
-  'qt5-declarative'
-  'qt5-quickcontrols'
-  'qt5-quickcontrols2'
-  'qt5-charts'
-  'qt5-graphicaleffects'
-  'qt5-svg'
-  'python'
-  'python-bitstring'
-  'python-cbor'
-  'python-phpserialize'
-  'python-pandas'
-  'python-msgpack')
-conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
-source=('rdm.desktop'
-        "https://github.com/pidario/rdm-build/releases/download/\${pkgver}/rdm"
-        'https://raw.githubusercontent.com/uglide/RedisDesktopManager/2020/src/resources/images/rdm.png')
-sha256sums=('$checksum'
-            'SKIP'
-            'SKIP')
-
-package() {
-  _bindir="\$pkgdir/usr/bin"
-  _pixdir="\$pkgdir/usr/share/pixmaps"
-  _appdir="\$pkgdir/usr/share/applications"
-
-  mkdir -p "\${_bindir}"
-  mkdir -p "\${_pixdir}"
-  mkdir -p "\${_appdir}"
-
-  install -Dm755 "\$srcdir/rdm" "\${_bindir}/rdm"
-  install -Dm644 "\$srcdir/rdm.png" "\${_pixdir}/rdm.png"
-  install -Dm644 "\$srcdir/rdm.desktop" "\${_appdir}/rdm.desktop"
-}
-EOT
-makepkg --printsrcinfo > .SRCINFO
-cp $base/rdm.desktop ./
-git add PKGBUILD .SRCINFO rdm.desktop
-git commit -m "release $TAG"
-git push
