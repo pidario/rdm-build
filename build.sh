@@ -10,8 +10,6 @@
 # GITHUB_TOKEN
 # GH_USER
 # GH_REPO
-# EMAIL
-# MAINTAINER
 
 # info on build:
 # https://github.com/RedisDesktop/redisdesktopmanager-snap/blob/master/snap/snapcraft.yaml
@@ -41,7 +39,7 @@ pushd $repo/src/py && pip install -r requirements.txt && popd
 pushd $repo/3rdparty/lz4/build/cmake && cmake -DBUILD_STATIC_LIBS=true . && make && popd
 pushd $repo/src
 lrelease rdm.pro
-sed -i "s/2020\.[[:digit:]]\.0\-dev/$rdm_version/g" rdm.pro
+sed -i "s/2021\.[[:digit:]]\.0\-dev/$rdm_version/g" rdm.pro
 rm -rf $repo/bin
 qmake && make
 popd
