@@ -4,3 +4,11 @@ Dockerfile
 README.md
 artifacts
 rdm-bin
+release.sh
+version
+AppDir
+ghr*
+linuxdeploy*
+*.AppImage*
+rdm.png
+rdm

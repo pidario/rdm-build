@@ -1,2 +1,8 @@
 artifacts
 rdm-bin
+AppDir
+ghr*
+linuxdeploy*
+*.AppImage*
+rdm.png
+rdm
