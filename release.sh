@@ -2,6 +2,7 @@
 
 # ext. variables:
 # TAG
+# VER
 # GITHUB_TOKEN
 # GH_USER
 # GH_REPO
@@ -24,6 +25,7 @@ git config user.name $GH_USER
 rm -f PKGBUILD .SRCINFO rdm.desktop
 cp ../rdm.desktop ./
 checksum=`sha256sum ./rdm.desktop | awk '{print $1}'`
+checksum_bin=`sha256sum ../artifacts/rdm-$VER | awk '{print $1}'`
 cat <<EOT >> PKGBUILD
 # Maintainer: $MAINTAINER
 
@@ -54,10 +56,10 @@ depends=(
   'python-msgpack')
 conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
 source=('rdm.desktop'
-        "https://github.com/pidario/rdm-build/releases/download/\${pkgver}/rdm"
+        "https://github.com/pidario/rdm-build/releases/download/\${pkgver}/rdm-$VER"
         'https://raw.githubusercontent.com/uglide/RedisDesktopManager/2021/src/resources/images/rdm.png')
 sha256sums=('$checksum'
-            'SKIP'
+            '$checksum_bin'
             'SKIP')
 
 package() {
@@ -69,7 +71,7 @@ package() {
   mkdir -p "\${_pixdir}"
   mkdir -p "\${_appdir}"
 
-  install -Dm755 "\$srcdir/rdm" "\${_bindir}/rdm"
+  install -Dm755 "\$srcdir/rdm-$VER" "\${_bindir}/rdm"
   install -Dm644 "\$srcdir/rdm.png" "\${_pixdir}/rdm.png"
   install -Dm644 "\$srcdir/rdm.desktop" "\${_appdir}/rdm.desktop"
 }
