@@ -44,6 +44,8 @@ rm -rf $repo/bin
 qmake && make -j`cat /proc/cpuinfo | grep -c processor`
 popd
 
+cp $repo/bin/linux/release/rdm $base/artifacts/rdm-$rdm_version
+
 # appimage build
 pushd $base
 curl -fsSOL https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
@@ -52,8 +54,6 @@ chmod +x $base/linuxdeploy*.AppImage
 convert $repo/src/resources/images/rdm.png -resize 512x512 $base/rdm.png
 ./linuxdeploy-x86_64.AppImage --appdir AppDir -e $repo/bin/linux/release/rdm -d $base/rdm.desktop -i $base/rdm.png -p qt --output appimage
 
-# copy artifacts
-cp $repo/bin/linux/release/rdm $base/artifacts/rdm-$rdm_version
 cp $base/rdm.AppImage $base/rdm.AppImage.zsync $base/artifacts/
 
 echo $rdm_version
