@@ -37,8 +37,6 @@ arch=('x86_64')
 url="https://rdm.dev/"
 license=('GPL3')
 depends=(
-  'botan'
-  'libssh2'
   'qt5-base'
   'qt5-imageformats'
   'qt5-tools'
@@ -55,6 +53,7 @@ depends=(
   'python-pandas'
   'python-msgpack')
 conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
+provides=('rdm')
 source=('rdm.desktop'
         "https://github.com/pidario/rdm-build/releases/download/\${pkgver}/rdm-$VER"
         'https://raw.githubusercontent.com/uglide/RedisDesktopManager/2021/src/resources/images/rdm.png')
