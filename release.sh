@@ -37,21 +37,24 @@ arch=('x86_64')
 url="https://rdm.dev/"
 license=('GPL3')
 depends=(
-  'qt5-base'
-  'qt5-imageformats'
-  'qt5-tools'
-  'qt5-declarative'
-  'qt5-quickcontrols'
-  'qt5-quickcontrols2'
   'qt5-charts'
   'qt5-graphicaleffects'
+  'qt5-imageformats'
+  'qt5-tools'
+  'qt5-quickcontrols'
+  'qt5-quickcontrols2'
   'qt5-svg'
+  'brotli'
   'python'
+  'snappy'
+)
+optdepends=(
   'python-bitstring'
   'python-cbor'
   'python-phpserialize'
   'python-pandas'
-  'python-msgpack')
+  'python-msgpack'
+)
 conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
 provides=('rdm')
 source=('rdm.desktop'
