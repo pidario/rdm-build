@@ -3,11 +3,11 @@ USER root
 RUN yum -y update && \
 	yum -y install epel-release && \
 	#yum -y groupinstall "Development Tools" && \
-	yum -y install yum-utils file wget lz4 lzma which cmake botan libssh2 ImageMagick xcb-util xcb-util-wm xcb-util-image xcb-util-keysyms xcb-util-renderutil libxkbcommon-x11 && \
+	yum -y install yum-utils file wget lz4 lz4-devel libzstd-devel lzma which cmake botan libssh2 openssl11 openssl11-devel snappy-devel brotli-devel ImageMagick xcb-util xcb-util-wm xcb-util-image xcb-util-keysyms xcb-util-renderutil libxkbcommon-x11 && \
 	yum-builddep -y python3
-RUN curl -LO https://github.com/python/cpython/archive/v3.9.2.tar.gz && \
-	tar xvf v3.9.2.tar.gz && \
-	cd cpython-3.9.2 && \
+RUN curl -LO https://github.com/python/cpython/archive/v3.10.1.tar.gz && \
+	tar xvf v3.10.1.tar.gz && \
+	cd cpython-3.10.1 && \
 	./configure --enable-optimizations --enable-shared && \
 	make -j`cat /proc/cpuinfo | grep -c processor` && \
 	make install

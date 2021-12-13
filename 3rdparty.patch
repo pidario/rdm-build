@@ -1,0 +1,38 @@
+diff --git a/3rdparty/3rdparty.pri b/3rdparty/3rdparty.pri
+index 3c05b23d..9d5074d4 100644
+--- a/3rdparty/3rdparty.pri
++++ b/3rdparty/3rdparty.pri
+@@ -82,29 +82,13 @@ unix:!macx { # ubuntu & debian
+     }
+ 
+     LIBS += -lz
+-    defined(SYSTEM_LZ4, var) {
+-        LIBS += -llz4
+-    } else {
+-        LIBS += $$LZ4DIR/build/cmake/liblz4.a
+-    }
++    LIBS += -llz4
+ 
+-    defined(SYSTEM_ZSTD, var) {
+-        LIBS += -lzstd
+-    } else {
+-        LIBS += $$ZSTDDIR/build/cmake/lib/libzstd.a
+-    }
++    LIBS += -lzstd
+ 
+-    defined(SYSTEM_SNAPPY, var) {
+-        LIBS += -lsnappy
+-    } else {
+-        LIBS += $$SNAPPYDIR/libsnappy.a
+-    }
++    LIBS += -lsnappy
+ 
+-    defined(SYSTEM_BROTLI, var) {
+-        LIBS += -lbrotlicommon -lbrotlidec -lbrotlienc
+-    } else {
+-        LIBS += -L$$BROTLIDIR/ -lbrotlienc-static -lbrotlicommon-static -lbrotlidec-static
+-    }
++    LIBS += -lbrotlicommon -lbrotlidec -lbrotlienc
+ 
+     # Unix signal watcher
+     defined(LINUX_SIGNALS, var) {

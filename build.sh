@@ -35,8 +35,14 @@ git clone --branch $TAG --recursive git://github.com/uglide/RedisDesktopManager.
 pushd $repo
 rdm_version="$(git describe --abbrev=0 --tags)+$(git rev-parse --short HEAD)"
 popd
-pushd $repo/src/py && pip3 install -r requirements.txt && popd
-pushd $repo/3rdparty/lz4/build/cmake && cmake -DBUILD_STATIC_LIBS=true . && make && popd
+pushd $repo/3rdparty
+patch -i $base/3rdparty.patch
+popd
+#pushd $repo/src/py && pip3 install -r requirements.txt && popd
+#pushd $repo/3rdparty/lz4/build/cmake && cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DLZ4_BUNDLED_MODE=ON . && make && popd
+#pushd $repo/3rdparty/zstd/build/cmake && cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release . && make libzstd_static && popd
+#pushd $repo/3rdparty/snappy && cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release . && make && popd
+#pushd $repo/3rdparty/brotli && cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release . && make && popd
 pushd $repo/src
 lrelease rdm.pro
 sed -i "s/2021\.[[:digit:]]\.0\-dev/$rdm_version/g" rdm.pro
