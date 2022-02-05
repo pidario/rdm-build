@@ -34,7 +34,7 @@ pkgver=$TAG
 pkgrel=1
 pkgdesc='Cross-platform open source database management tool for Redis ®'
 arch=('x86_64')
-url="https://rdm.dev/"
+url="https://resp.app/"
 license=('GPL3')
 depends=(
   'qt5-charts'
@@ -56,10 +56,10 @@ optdepends=(
   'python-msgpack'
 )
 conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
-provides=('rdm')
+provides=('rdm' 'resp')
 source=('rdm.desktop'
         "https://github.com/pidario/rdm-build/releases/download/\${pkgver}/rdm-$VER"
-        'https://raw.githubusercontent.com/uglide/RedisDesktopManager/2021/src/resources/images/rdm.png')
+        'https://raw.githubusercontent.com/uglide/RedisDesktopManager/2022/src/resources/images/rdm.png')
 sha256sums=('$checksum'
             '$checksum_bin'
             'SKIP')

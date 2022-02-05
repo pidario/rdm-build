@@ -24,12 +24,12 @@ RUN pip3 install aqtinstall==${AQT_VER} && \
 RUN echo "/usr/local/lib" > /etc/ld.so.conf.d/py.conf && \
 	echo "/opt/${QT_VER}/gcc_64/lib" > /etc/ld.so.conf.d/qt.conf
 WORKDIR /rdm-build
-COPY 3rdparty.patch rdm.desktop rdm.png version ./
+COPY 3rdparty.patch rdm.desktop version ./
 
 FROM dependencies
 ENV GH_USER="pidario"
 ENV GH_REPO="rdm-build"
-ENV BASE_VER="2021"
+ENV BASE_VER="2022"
 ENV BASE="/rdm-build"
 ENV REPO="${BASE}/rdm"
 ENV QML_SOURCES_PATHS="${REPO}/src"
@@ -44,10 +44,11 @@ RUN ldconfig && \
 	cd "${REPO}/3rdparty" && \
 	patch -i ${BASE}/3rdparty.patch && \
 	cd "${REPO}/src" && \
-	lrelease rdm.pro && \
-	sed -i "s/${BASE_VER}\\.[[:digit:]]\.0\-dev/$rdm_version/g" rdm.pro && \
+	lrelease resp.pro && \
+	sed -i "s/${BASE_VER}\\.[[:digit:]]\.0\-dev/$rdm_version/g" resp.pro && \
 	qmake && make -j$(cat /proc/cpuinfo | grep -c processor) && \
 	mkdir -p "${BASE}/artifacts" && \
+	mv "${REPO}/bin/linux/release/resp" "${REPO}/bin/linux/release/rdm" && \
 	cp "${REPO}/bin/linux/release/rdm" "${BASE}/artifacts/rdm-$rdm_version" && \
 	cd "${BASE}" && \
 	curl -fsSOL https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage && \
