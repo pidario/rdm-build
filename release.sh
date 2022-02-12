@@ -59,7 +59,7 @@ conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
 provides=('rdm' 'resp')
 source=('rdm.desktop'
         "https://github.com/pidario/rdm-build/releases/download/\${pkgver}/rdm-$VER"
-        'https://raw.githubusercontent.com/uglide/RedisDesktopManager/2022/src/resources/images/rdm.png')
+        'https://raw.githubusercontent.com/uglide/RedisDesktopManager/2022/src/resources/images/resp.png')
 sha256sums=('$checksum'
             '$checksum_bin'
             'SKIP')
@@ -74,7 +74,7 @@ package() {
   mkdir -p "\${_appdir}"
 
   install -Dm755 "\$srcdir/rdm-$VER" "\${_bindir}/rdm"
-  install -Dm644 "\$srcdir/rdm.png" "\${_pixdir}/rdm.png"
+  install -Dm644 "\$srcdir/resp.png" "\${_pixdir}/rdm.png"
   install -Dm644 "\$srcdir/rdm.desktop" "\${_appdir}/rdm.desktop"
 }
 EOT
