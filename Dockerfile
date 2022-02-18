@@ -54,7 +54,7 @@ RUN ldconfig && \
 	curl -fsSOL https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage && \
 	curl -fsSOL https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage && \
 	chmod +x "${BASE}"/linuxdeploy*.AppImage && \
-	convert "${REPO}/src/resources/images/rdm.png" -resize 512x512 "${BASE}/rdm.png" && \
+	convert "${REPO}/src/resources/images/resp.png" -resize 512x512 "${BASE}/rdm.png" && \
 	./linuxdeploy-x86_64.AppImage --appdir AppDir -e "${REPO}/bin/linux/release/rdm" -d "${BASE}/rdm.desktop" -i "${BASE}/rdm.png" -p qt --output appimage && \
 	cp "${BASE}/rdm.AppImage" "${BASE}/rdm.AppImage.zsync" "${BASE}/artifacts/" && \
 	echo $rdm_version
