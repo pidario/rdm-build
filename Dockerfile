@@ -38,7 +38,7 @@ ENV OUTPUT="rdm.AppImage"
 ENV UPDATE_INFORMATION="zsync|https://github.com/${GH_USER}/${GH_REPO}/releases/latest/download/rdm.AppImage.zsync"
 RUN ldconfig && \
 	version="$(cat version)" && \
-	git clone --branch "$version" --recursive git://github.com/uglide/RedisDesktopManager.git rdm && \
+	git clone --branch "$version" --recursive https://github.com/uglide/RedisDesktopManager.git rdm && \
 	cd ${REPO} && \
 	rdm_version="$(git describe --abbrev=0 --tags)+$(git rev-parse --short HEAD)" && \
 	cd "${REPO}/3rdparty" && \
