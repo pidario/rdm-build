@@ -38,22 +38,12 @@ url="https://resp.app/"
 license=('GPL3')
 depends=(
   'qt5-charts'
-  'qt5-graphicaleffects'
-  'qt5-imageformats'
-  'qt5-tools'
   'qt5-quickcontrols'
   'qt5-quickcontrols2'
   'qt5-svg'
   'brotli'
   'python'
   'snappy'
-)
-optdepends=(
-  'python-bitstring'
-  'python-cbor'
-  'python-phpserialize'
-  'python-pandas'
-  'python-msgpack'
 )
 conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
 provides=('rdm' 'resp')
