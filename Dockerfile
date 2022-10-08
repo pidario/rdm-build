@@ -38,6 +38,7 @@ ENV OUTPUT="rdm.AppImage"
 ENV UPDATE_INFORMATION="zsync|https://github.com/${GH_USER}/${GH_REPO}/releases/latest/download/rdm.AppImage.zsync"
 RUN ldconfig && \
 	version="$(cat version)" && \
+	mkdir --parents "${BASE}/artifacts" && \
 	git clone --branch "$version" --recursive https://github.com/uglide/RedisDesktopManager.git rdm && \
 	cd ${REPO} && \
 	rdm_version="$(git describe --abbrev=0 --tags)+$(git rev-parse --short HEAD)" && \
@@ -47,10 +48,11 @@ RUN ldconfig && \
 	lrelease resp.pro && \
 	sed -i "s/${BASE_VER}\\.[[:digit:]]\.0\-dev/$rdm_version/g" resp.pro && \
 	qmake && make -j$(cat /proc/cpuinfo | grep -c processor) && \
-	mkdir -p "${BASE}/artifacts" && \
 	mv "${REPO}/bin/linux/release/resp" "${REPO}/bin/linux/release/rdm" && \
 	cp "${REPO}/bin/linux/release/rdm" "${BASE}/artifacts/rdm-$rdm_version" && \
+	make clean && \
 	cd "${BASE}" && \
+	tar -zcvf "${BASE}/artifacts/rdm.tar.gz" rdm/ && \
 	curl -fsSOL https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage && \
 	curl -fsSOL https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage && \
 	chmod +x "${BASE}"/linuxdeploy*.AppImage && \
