@@ -5,7 +5,7 @@
 FROM centos/devtoolset-7-toolchain-centos7:latest AS dependencies
 USER root
 ENV QT_VER="5.15.2"
-ENV PYTHON_VER="3.10.1"
+ENV PYTHON_VER="3.11.3"
 ENV AQT_VER="1.2.5"
 ENV PATH="/opt/${QT_VER}/gcc_64/bin:$PATH"
 RUN yum -y update && \

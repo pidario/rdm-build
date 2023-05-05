@@ -14,18 +14,18 @@ set -eu
 # github release
 curl -fsSOL https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
 tar -zxvf ghr_v0.13.0_linux_amd64.tar.gz
-ghr_v0.13.0_linux_amd64/ghr -t $GITHUB_TOKEN -u $GH_USER -r $GH_REPO -delete $TAG ./artifacts
+ghr_v0.13.0_linux_amd64/ghr -t "$GITHUB_TOKEN" -u "$GH_USER" -r "$GH_REPO" -delete "$TAG" ./artifacts
 
 # aur release
-ssh-keyscan -H aur.archlinux.org >> $HOME/.ssh/known_hosts
+ssh-keyscan -H aur.archlinux.org >> "$HOME"/.ssh/known_hosts
 git clone ssh://aur@aur.archlinux.org/rdm-bin.git
 pushd rdm-bin
-git config user.email $EMAIL
-git config user.name $GH_USER
+git config user.email "$EMAIL"
+git config user.name "$GH_USER"
 rm -f PKGBUILD .SRCINFO rdm.desktop
 cp ../rdm.desktop ./
-checksum=`sha256sum ./rdm.desktop | awk '{print $1}'`
-checksum_bin=`sha256sum ../artifacts/rdm-$VER | awk '{print $1}'`
+checksum=$(sha256sum ./rdm.desktop | awk '{print $1}')
+checksum_bin=$(sha256sum ../artifacts/rdm-"$VER" | awk '{print $1}')
 cat <<EOT >> PKGBUILD
 # Maintainer: $MAINTAINER
 
