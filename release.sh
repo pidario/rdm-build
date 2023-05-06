@@ -19,7 +19,7 @@ ghr_v0.13.0_linux_amd64/ghr -t "$GITHUB_TOKEN" -u "$GH_USER" -r "$GH_REPO" -dele
 # aur release
 ssh-keyscan -H aur.archlinux.org >> "$HOME"/.ssh/known_hosts
 git clone ssh://aur@aur.archlinux.org/rdm-bin.git
-pushd rdm-bin
+cd rdm-bin
 git config user.email "$EMAIL"
 git config user.name "$GH_USER"
 rm -f PKGBUILD .SRCINFO rdm.desktop
@@ -31,7 +31,7 @@ cat <<EOT >> PKGBUILD
 
 pkgname=rdm-bin
 pkgver=$TAG
-pkgrel=1
+pkgrel=2
 pkgdesc='Cross-platform open source database management tool for Redis ®'
 arch=('x86_64')
 url="https://resp.app/"
@@ -42,7 +42,7 @@ depends=(
   'qt5-quickcontrols2'
   'qt5-svg'
   'brotli'
-  'python'
+  'python>=3.11'
   'snappy'
 )
 conflicts=('redis-desktop-manager-bin' 'redis-desktop-manager')
@@ -72,4 +72,3 @@ makepkg --printsrcinfo > .SRCINFO
 git add PKGBUILD .SRCINFO rdm.desktop
 git commit -m "release $TAG"
 git push
-popd
